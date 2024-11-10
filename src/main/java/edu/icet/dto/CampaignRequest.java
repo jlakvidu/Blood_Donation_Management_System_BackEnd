@@ -4,16 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CampaignResponseDTO {
-    private Long id;
+public class CampaignRequest {
     private String title;
     private LocalDate date;
     private String venue;
@@ -22,6 +20,5 @@ public class CampaignResponseDTO {
     private String hospitalName;
     private String contactNumber;
     private String hospitalEmail;
-    private String imagePath;
-    private LocalDateTime createdAt;
+    private MultipartFile image;
 }

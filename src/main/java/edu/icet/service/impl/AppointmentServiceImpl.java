@@ -1,10 +1,11 @@
-package edu.icet.service;
+package edu.icet.service.impl;
 
-import edu.icet.dto.AppointmentDTO;
-import edu.icet.entity.Appointment;
+import edu.icet.dto.Appointment;
+import edu.icet.entity.AppointmentEntity;
 import edu.icet.entity.HospitalEntity;
 import edu.icet.repository.AppointmentDao;
 import edu.icet.repository.HospitalDao;
+import edu.icet.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -21,11 +22,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentDao appointmentDao;
     private final ModelMapper modelMapper;
 
-    public Appointment createAppointment(AppointmentDTO appointmentDTO) {
+    public AppointmentEntity createAppointment(Appointment appointmentDTO) {
         HospitalEntity hospital = hospitalDao.findById(appointmentDTO.getHospitalId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "AppointmentEntity not found"));
 
-        Appointment appointment = new Appointment();
+        AppointmentEntity appointment = new AppointmentEntity();
         appointment.setPatientName(appointmentDTO.getPatientName());
         appointment.setBloodType(appointmentDTO.getBloodType());
         appointment.setContactNumber(appointmentDTO.getContactNumber());
@@ -36,23 +37,23 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentDao.save(appointment);
     }
 
-    public List<Appointment> getAllAppointments() {
+    public List<AppointmentEntity> getAllAppointments() {
         return appointmentDao.findAll();
     }
 
-    public Appointment updateAppointmentStatus(Long id, Appointment.AppointmentStatus status) {
-        Appointment appointment = appointmentDao.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
+    public AppointmentEntity updateAppointmentStatus(Long id, AppointmentEntity.AppointmentStatus status) {
+        AppointmentEntity appointment = appointmentDao.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "AppointmentEntity not found"));
         appointment.setStatus(status);
         return appointmentDao.save(appointment);
     }
 
     public void deleteAppointment(Long id) {
         appointmentDao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+                .orElseThrow(() -> new RuntimeException("AppointmentEntity not found"));
         appointmentDao.deleteById(id);
     }
-    public List<Appointment> getAppointmentsBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<AppointmentEntity> getAppointmentsBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return appointmentDao.findByAppointmentDateTimeBetween(startDate, endDate);
     }
 

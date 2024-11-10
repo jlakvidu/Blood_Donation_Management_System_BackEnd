@@ -1,10 +1,9 @@
-package edu.icet.service;
+package edu.icet.service.impl;
 
-import edu.icet.dto.Donor;
-import edu.icet.dto.DonorEntity;
 import edu.icet.dto.Hospital;
 import edu.icet.entity.HospitalEntity;
 import edu.icet.repository.HospitalDao;
+import edu.icet.service.HospitalService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -16,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 @RequiredArgsConstructor
-public class HospitalServiceImpl implements HospitalService{
+public class HospitalServiceImpl implements HospitalService {
     private final HospitalDao hospitalDao;
     final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
-    private final FileStorageService fileStorageService;
+    private final FileStorageServiceImpl fileStorageService;
 
     @Override
     public List<Hospital> getAll() {

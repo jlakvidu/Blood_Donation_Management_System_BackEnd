@@ -1,9 +1,10 @@
-package edu.icet.service;
+package edu.icet.service.impl;
 
-import edu.icet.dto.EmergencyRequestDTO;
+import edu.icet.dto.EmergencyRequest;
 import edu.icet.dto.EmergencyResponseDTO;
-import edu.icet.entity.EmergencyRequest;
+import edu.icet.entity.EmergencyRequestEntity;
 import edu.icet.repository.EmergencyRequestDao;
+import edu.icet.service.EmergencyRequestService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -16,13 +17,13 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class EmergencyRequestServiceImpl implements EmergencyRequestService{
+public class EmergencyRequestServiceImpl implements EmergencyRequestService {
     private final EmergencyRequestDao emergencyRequestRepository;
-    private final FileStorageService fileStorageService;
+    private final FileStorageServiceImpl fileStorageService;
 
     @Override
-    public EmergencyResponseDTO createRequest(EmergencyRequestDTO requestDTO) {
-        EmergencyRequest request = new EmergencyRequest();
+    public EmergencyResponseDTO createRequest(EmergencyRequest requestDTO) {
+        EmergencyRequestEntity request = new EmergencyRequestEntity();
         request.setPatientName(requestDTO.getPatientName());
         request.setBloodType(requestDTO.getBloodType());
         request.setHospital(requestDTO.getHospital());
@@ -32,7 +33,7 @@ public class EmergencyRequestServiceImpl implements EmergencyRequestService{
         request.setUnitsNeeded(requestDTO.getUnitsNeeded());
         request.setUrgencyLevel(requestDTO.getUrgencyLevel());
         request.setDescription(requestDTO.getDescription());
-        EmergencyRequest savedRequest = emergencyRequestRepository.save(request);
+        EmergencyRequestEntity savedRequest = emergencyRequestRepository.save(request);
         return convertToDTO(savedRequest);
     }
 
@@ -46,14 +47,14 @@ public class EmergencyRequestServiceImpl implements EmergencyRequestService{
 
     @Override
     public EmergencyResponseDTO getRequestById(Long id) {
-        EmergencyRequest request = emergencyRequestRepository.findById(id)
+        EmergencyRequestEntity request = emergencyRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Emergency request not found"));
         return convertToDTO(request);
     }
 
     @Override
     public void closeRequest(Long id) {
-        EmergencyRequest request = emergencyRequestRepository.findById(id)
+        EmergencyRequestEntity request = emergencyRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Emergency request not found"));
         request.setStatus("CLOSED");
         emergencyRequestRepository.save(request);
@@ -61,19 +62,19 @@ public class EmergencyRequestServiceImpl implements EmergencyRequestService{
 
     @Override
     public void deleteRequest(Long id) {
-        EmergencyRequest request = emergencyRequestRepository.findById(id)
+        EmergencyRequestEntity request = emergencyRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Emergency request not found"));
         emergencyRequestRepository.delete(request);
     }
 
-    private EmergencyResponseDTO convertToDTO(EmergencyRequest request) {
+    private EmergencyResponseDTO convertToDTO(EmergencyRequestEntity request) {
         EmergencyResponseDTO dto = new EmergencyResponseDTO();
         BeanUtils.copyProperties(request, dto);
         return dto;
     }
 
-    public EmergencyRequest updateEmergencyRequest(Long id, EmergencyRequestDTO requestDTO) {
-        EmergencyRequest existingRequest = emergencyRequestRepository.findById(id)
+    public EmergencyRequestEntity updateEmergencyRequest(Long id, EmergencyRequest requestDTO) {
+        EmergencyRequestEntity existingRequest = emergencyRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Emergency request not found with id: " + id));
         existingRequest.setPatientName(requestDTO.getPatientName());
         existingRequest.setBloodType(requestDTO.getBloodType());
@@ -85,7 +86,7 @@ public class EmergencyRequestServiceImpl implements EmergencyRequestService{
         return emergencyRequestRepository.save(existingRequest);
     }
 
-    public List<EmergencyRequest> getEmergenciesBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<EmergencyRequestEntity> getEmergenciesBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return emergencyRequestRepository.findByCreatedAtBetween(startDate, endDate);
     }
 }

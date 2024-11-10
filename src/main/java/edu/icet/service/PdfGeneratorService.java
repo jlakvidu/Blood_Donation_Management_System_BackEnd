@@ -265,7 +265,7 @@ public class PdfGeneratorService {
         document.open();
 
         Font titleFont = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD, PRIMARY_COLOR);
-        Paragraph title = new Paragraph("Campaign Report", titleFont);
+        Paragraph title = new Paragraph("CampaignEntity Report", titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
 
@@ -304,7 +304,7 @@ public class PdfGeneratorService {
 
     private void addDistrictDistribution(Document document, Map<String, Object> reportData) throws DocumentException {
         Font sectionTitleFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, PdfGeneratorService.SECONDARY_COLOR);
-        Paragraph districtTitle = new Paragraph("Campaign Distribution by District", sectionTitleFont);
+        Paragraph districtTitle = new Paragraph("CampaignEntity Distribution by District", sectionTitleFont);
         districtTitle.setSpacingBefore(20);
         document.add(districtTitle);
 
@@ -351,7 +351,7 @@ public class PdfGeneratorService {
 
     private void addHospitalDistribution(Document document, Map<String, Object> reportData) throws DocumentException {
         Font sectionTitleFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, PdfGeneratorService.SECONDARY_COLOR);
-        Paragraph hospitalTitle = new Paragraph("Campaign Distribution by Hospital", sectionTitleFont);
+        Paragraph hospitalTitle = new Paragraph("CampaignEntity Distribution by Hospital", sectionTitleFont);
         hospitalTitle.setSpacingBefore(30);
         document.add(hospitalTitle);
 
@@ -398,7 +398,7 @@ public class PdfGeneratorService {
 
     private void addMonthlyDistribution(Document document, Map<String, Object> reportData) throws DocumentException {
         Font sectionTitleFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, SECONDARY_COLOR);
-        Paragraph monthlyTitle = new Paragraph("Monthly Campaign Distribution", sectionTitleFont);
+        Paragraph monthlyTitle = new Paragraph("Monthly CampaignEntity Distribution", sectionTitleFont);
         monthlyTitle.setSpacingBefore(30);
         document.add(monthlyTitle);
 
@@ -619,7 +619,7 @@ public class PdfGeneratorService {
         writer.setPageEvent(new HeaderFooterPageEvent());
         document.open();
         Font titleFont = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD, PRIMARY_COLOR);
-        Paragraph title = new Paragraph("Appointment Report", titleFont);
+        Paragraph title = new Paragraph("AppointmentEntity Report", titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
         Font subtitleFont = new Font(Font.FontFamily.HELVETICA, 16, Font.NORMAL, SECONDARY_COLOR);

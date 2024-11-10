@@ -16,7 +16,7 @@ import java.util.Map;
 @RequestMapping("/hospital/password")
 @Slf4j
 @CrossOrigin
-public class PasswordResetController {
+public class HospitalPasswordResetController {
     @Autowired
     private EmailService emailService;
 

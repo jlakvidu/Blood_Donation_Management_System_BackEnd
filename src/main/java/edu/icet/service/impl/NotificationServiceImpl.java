@@ -1,8 +1,9 @@
-package edu.icet.service;
+package edu.icet.service.impl;
 
-import edu.icet.dto.NotificationDTO;
-import edu.icet.entity.Notification;
+import edu.icet.dto.Notification;
+import edu.icet.entity.NotificationEntity;
 import edu.icet.repository.NotificationDao;
+import edu.icet.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ import java.util.List;
 public class NotificationServiceImpl implements NotificationService {
     private final NotificationDao notificationDao;
 
-    public Notification createNotification(NotificationDTO notificationDTO) {
-        Notification notification = new Notification();
+    public NotificationEntity createNotification(Notification notificationDTO) {
+        NotificationEntity notification = new NotificationEntity();
         notification.setRecipientEmail(notificationDTO.getRecipientEmail());
         notification.setTitle(notificationDTO.getTitle());
         notification.setMessage(notificationDTO.getMessage());
@@ -26,13 +27,13 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationDao.save(notification);
     }
 
-    public List<Notification> getNotificationsByEmail(String email) {
+    public List<NotificationEntity> getNotificationsByEmail(String email) {
         return notificationDao.findByRecipientEmailOrderByCreatedAtDesc(email);
     }
 
-    public Notification markAsRead(Long id) {
-        Notification notification = notificationDao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Notification not found"));
+    public NotificationEntity markAsRead(Long id) {
+        NotificationEntity notification = notificationDao.findById(id)
+                .orElseThrow(() -> new RuntimeException("NotificationEntity not found"));
 
         notification.setRead(true);
         return notificationDao.save(notification);
@@ -42,7 +43,7 @@ public class NotificationServiceImpl implements NotificationService {
         notificationDao.deleteById(id);
     }
 
-    public List<Notification> getUnreadNotifications(String email) {
+    public List<NotificationEntity> getUnreadNotifications(String email) {
         return notificationDao.findByRecipientEmailAndIsReadFalseOrderByCreatedAtDesc(email);
     }
 
@@ -52,7 +53,7 @@ public class NotificationServiceImpl implements NotificationService {
 
 
     public void markAllAsRead(String email) {
-        List<Notification> unreadNotifications = notificationDao
+        List<NotificationEntity> unreadNotifications = notificationDao
                 .findByRecipientEmailAndIsReadFalse(email);
 
         unreadNotifications.forEach(notification -> notification.setRead(true));

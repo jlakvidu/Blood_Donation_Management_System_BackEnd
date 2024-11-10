@@ -2,6 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.service.PdfGeneratorService;
 import edu.icet.service.ReportService;
+import edu.icet.service.impl.ReportServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;

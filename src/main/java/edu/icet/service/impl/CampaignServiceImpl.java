@@ -1,9 +1,10 @@
-package edu.icet.service;
+package edu.icet.service.impl;
 
-import edu.icet.dto.CampaignRequestDTO;
-import edu.icet.dto.CampaignResponseDTO;
-import edu.icet.entity.Campaign;
+import edu.icet.dto.CampaignRequest;
+import edu.icet.dto.CampaignResponse;
+import edu.icet.entity.CampaignEntity;
 import edu.icet.repository.CampaignDao;
+import edu.icet.service.CampaignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +19,9 @@ import java.util.stream.Collectors;
 public class CampaignServiceImpl implements CampaignService {
 
     private final CampaignDao campaignRepository;
-    private final FileStorageService fileStorageService;
+    private final FileStorageServiceImpl fileStorageService;
 
-    public List<CampaignResponseDTO> getAllCampaigns() {
+    public List<CampaignResponse> getAllCampaigns() {
         return campaignRepository.findAllByOrderByCreatedAtDesc()
                 .stream()
                 .map(this::mapToDTO)
@@ -28,8 +29,8 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Transactional
-    public CampaignResponseDTO createCampaign(CampaignRequestDTO requestDTO) {
-        Campaign campaign = new Campaign();
+    public CampaignResponse createCampaign(CampaignRequest requestDTO) {
+        CampaignEntity campaign = new CampaignEntity();
         campaign.setTitle(requestDTO.getTitle());
         campaign.setDate(requestDTO.getDate());
         campaign.setVenue(requestDTO.getVenue());
@@ -45,19 +46,19 @@ public class CampaignServiceImpl implements CampaignService {
             campaign.setImagePath(imagePath);
         }
 
-        Campaign savedCampaign = campaignRepository.save(campaign);
+        CampaignEntity savedCampaign = campaignRepository.save(campaign);
         return mapToDTO(savedCampaign);
     }
 
     @Override
     public void deleteCampaignById(Long id) {
         campaignRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+                .orElseThrow(() -> new RuntimeException("AppointmentEntity not found"));
         campaignRepository.deleteById(id);
     }
 
-    private CampaignResponseDTO mapToDTO(Campaign campaign) {
-        CampaignResponseDTO dto = new CampaignResponseDTO();
+    private CampaignResponse mapToDTO(CampaignEntity campaign) {
+        CampaignResponse dto = new CampaignResponse();
         dto.setId(campaign.getId());
         dto.setTitle(campaign.getTitle());
         dto.setDate(campaign.getDate());
@@ -72,14 +73,14 @@ public class CampaignServiceImpl implements CampaignService {
         return dto;
     }
 
-    public Campaign getCampaignById(Long id) {
+    public CampaignEntity getCampaignById(Long id) {
         return campaignRepository.findById(id).orElse(null);
     }
-    public Campaign updateCampaign(Campaign campaign) {
+    public CampaignEntity updateCampaign(CampaignEntity campaign) {
         return campaignRepository.save(campaign);
     }
 
-    public List<Campaign> getCampaignsBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<CampaignEntity> getCampaignsBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return campaignRepository.findByCreatedAtBetween(startDate, endDate);
     }
 

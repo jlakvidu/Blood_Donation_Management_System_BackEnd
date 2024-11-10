@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppointmentDTO {
+public class Appointment {
     private String patientName;
     private String bloodType;
     private String contactNumber;

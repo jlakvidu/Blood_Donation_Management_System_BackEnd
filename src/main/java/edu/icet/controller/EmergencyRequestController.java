@@ -1,8 +1,8 @@
 package edu.icet.controller;
 
-import edu.icet.dto.EmergencyRequestDTO;
+import edu.icet.dto.EmergencyRequest;
 import edu.icet.dto.EmergencyResponseDTO;
-import edu.icet.entity.EmergencyRequest;
+import edu.icet.entity.EmergencyRequestEntity;
 import edu.icet.service.EmergencyRequestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class EmergencyRequestController {
 
     @PostMapping
     public ResponseEntity<EmergencyResponseDTO> createEmergencyRequest(
-            @RequestBody EmergencyRequestDTO requestDTO) {
+            @RequestBody EmergencyRequest requestDTO) {
         EmergencyResponseDTO response = emergencyRequestService.createRequest(requestDTO);
         return ResponseEntity.ok(response);
     }
@@ -56,9 +56,9 @@ public class EmergencyRequestController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateEmergencyRequest(
             @PathVariable Long id,
-            @ModelAttribute EmergencyRequestDTO requestDTO) {
+            @ModelAttribute EmergencyRequest requestDTO) {
         try {
-            EmergencyRequest updatedRequest = emergencyRequestService.updateEmergencyRequest(id, requestDTO);
+            EmergencyRequestEntity updatedRequest = emergencyRequestService.updateEmergencyRequest(id, requestDTO);
             return ResponseEntity.ok(updatedRequest);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

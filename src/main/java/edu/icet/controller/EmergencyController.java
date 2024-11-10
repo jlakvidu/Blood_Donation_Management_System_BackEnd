@@ -1,6 +1,6 @@
 package edu.icet.controller;
 
-import edu.icet.entity.EmergencyEmailRequest;
+import edu.icet.entity.EmergencyEmailRequestEntity;
 import edu.icet.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class EmergencyController {
     private EmailService emailService;
 
     @PostMapping("/notify-donors")
-    public ResponseEntity<?> notifyDonors(@RequestBody EmergencyEmailRequest request) {
+    public ResponseEntity<?> notifyDonors(@RequestBody EmergencyEmailRequestEntity request) {
         System.out.println("Received request: " + request);
         try {
             int notifiedCount = emailService.notifyMatchingDonors(request);

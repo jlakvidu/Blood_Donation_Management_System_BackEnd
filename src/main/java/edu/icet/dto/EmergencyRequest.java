@@ -8,7 +8,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class EmergencyRequestDTO {
+public class EmergencyRequest {
     private String patientName;
     private String bloodType;
     private String hospital;

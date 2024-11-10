@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "Email_Request")
-public class EmergencyEmailRequest {
+public class EmergencyEmailRequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,6 +1,6 @@
 package edu.icet.dto;
 
-import edu.icet.entity.Notification;
+import edu.icet.entity.NotificationEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +9,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class NotificationDTO {
+public class Notification {
     private String recipientEmail;
     private String title;
     private String message;
-    private Notification.NotificationType type;
+    private NotificationEntity.NotificationType type;
 }

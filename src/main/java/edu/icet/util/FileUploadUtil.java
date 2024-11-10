@@ -1,4 +1,4 @@
-package edu.icet;
+package edu.icet.util;
 
 import org.springframework.web.multipart.MultipartFile;
 

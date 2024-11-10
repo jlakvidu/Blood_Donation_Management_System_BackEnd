@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class EmergencyEmailRequestDTO {
+public class EmergencyEmailRequest {
     private Long id;
     private String bloodType;
     private String district;

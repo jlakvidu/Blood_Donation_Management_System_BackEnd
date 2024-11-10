@@ -1,6 +1,5 @@
 package edu.icet.controller;
 
-import edu.icet.dto.Donor;
 import edu.icet.dto.Hospital;
 import edu.icet.dto.LoginRequest;
 import edu.icet.service.EmailService;

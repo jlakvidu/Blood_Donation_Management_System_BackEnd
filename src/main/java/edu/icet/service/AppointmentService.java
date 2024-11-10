@@ -1,15 +1,15 @@
 package edu.icet.service;
 
-import edu.icet.dto.AppointmentDTO;
-import edu.icet.entity.Appointment;
+import edu.icet.dto.Appointment;
+import edu.icet.entity.AppointmentEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AppointmentService {
-    Appointment createAppointment(AppointmentDTO appointmentDTO);
-    List<Appointment> getAllAppointments();
-    Appointment updateAppointmentStatus(Long id, Appointment.AppointmentStatus status);
+    AppointmentEntity createAppointment(Appointment appointmentDTO);
+    List<AppointmentEntity> getAllAppointments();
+    AppointmentEntity updateAppointmentStatus(Long id, AppointmentEntity.AppointmentStatus status);
     void deleteAppointment(Long id);
-    List<Appointment> getAppointmentsBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
+    List<AppointmentEntity> getAppointmentsBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
 }
