@@ -70,18 +70,27 @@ public class EmailServiceImpl implements EmailService {
 
     private String createEmailContent(EmergencyEmailRequestEntity request) {
         return String.format("""
+            <!DOCTYPE html>
             <html>
-            <body>
-                <h2 style="color: #ff0000;">Urgent Blood Requirement</h2>
-                <p>A hospital in your district needs your help!</p>
-                <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;">
-                    <p><strong>Hospital:</strong> %s</p>
-                    <p><strong>Blood Type Needed:</strong> %s</p>
-                    <p><strong>Units Required:</strong> %d</p>
-                    <p><strong>Urgency Level:</strong> %s</p>
-                    <p><strong>Contact Number:</strong> %s</p>
+            <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h2 style="color: #e53935; margin: 0; font-size: 24px;">URGENT BLOOD REQUIREMENT</h2>
+                        <p style="color: #555555; font-size: 16px;">A hospital in your district needs immediate assistance</p>
+                    </div>
+                    <div style="background-color: #f8f9fa; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="margin-bottom: 15px;">
+                            <p style="margin: 8px 0;"><strong style="color: #333333;">Hospital:</strong> <span style="color: #555555;">%s</span></p>
+                            <p style="margin: 8px 0;"><strong style="color: #333333;">Blood Type Needed:</strong> <span style="color: #e53935; font-weight: bold;">%s</span></p>
+                            <p style="margin: 8px 0;"><strong style="color: #333333;">Units Required:</strong> <span style="color: #555555;">%d</span></p>
+                            <p style="margin: 8px 0;"><strong style="color: #333333;">Urgency Level:</strong> <span style="color: #555555;">%s</span></p>
+                            <p style="margin: 8px 0;"><strong style="color: #333333;">Contact Number:</strong> <span style="color: #555555;">%s</span></p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <p style="color: #666666; font-size: 15px;">Your donation can save a life. Please respond quickly.</p>
+                    </div>
                 </div>
-                <p style="color: #666;">Your donation can save a life.</p>
             </body>
             </html>
             """,
@@ -111,15 +120,24 @@ public class EmailServiceImpl implements EmailService {
 
     private String createOTPEmailContent(String otp) {
         return String.format("""
+            <!DOCTYPE html>
             <html>
-            <body>
-                <h2 style="color: #2196F3;">Password Reset Request</h2>
-                <p>Your OTP for password reset is:</p>
-                <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; text-align: center;">
-                    <h1 style="color: #1976D2; letter-spacing: 5px;">%s</h1>
+            <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h2 style="color: #1976D2; margin: 0; font-size: 24px;">Password Reset Request</h2>
+                    </div>
+                    <div style="background-color: #f8f9fa; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <p style="text-align: center; color: #555555; margin-bottom: 20px;">Your OTP for password reset is:</p>
+                        <div style="background-color: #ffffff; padding: 15px; border-radius: 4px; text-align: center; border: 1px dashed #1976D2;">
+                            <h1 style="color: #1976D2; letter-spacing: 8px; margin: 0; font-size: 32px;">%s</h1>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <p style="color: #666666; font-size: 14px; margin: 5px 0;">This OTP will expire in 5 minutes.</p>
+                        <p style="color: #666666; font-size: 14px; margin: 5px 0;">If you didn't request this, please ignore this email.</p>
+                    </div>
                 </div>
-                <p style="color: #666;">This OTP will expire in 5 minutes.</p>
-                <p style="color: #666;">If you didn't request this, please ignore this email.</p>
             </body>
             </html>
             """, otp);
@@ -156,15 +174,18 @@ public class EmailServiceImpl implements EmailService {
                 ? "#28a745" : "#dc3545";
 
         return String.format("""
+            <!DOCTYPE html>
             <html>
-            <body>
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h2 style="color: %s;">%s</h2>
-                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 15px 0;">
-                        %s
+            <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h2 style="color: %s; margin: 0; font-size: 24px;">%s</h2>
                     </div>
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
-                        <p style="color: #666; font-size: 14px;">Thank you for using our blood donation service.</p>
+                    <div style="background-color: #f8f9fa; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="color: #555555; font-size: 16px;">%s</div>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eeeeee;">
+                        <p style="color: #666666; font-size: 14px;">Thank you for using our blood donation service.</p>
                     </div>
                 </div>
             </body>
@@ -198,13 +219,22 @@ public class EmailServiceImpl implements EmailService {
 
     private String createLowCapacityEmailContent(String district) {
         return String.format("""
+            <!DOCTYPE html>
             <html>
-            <body>
-                <h2 style="color: #ff0000;">Urgent Blood Donation Needed</h2>
-                <p>Dear Donor,</p>
-                <p>We are reaching out to inform you that the blood bank in your district (%s) is running low on supplies.</p>
-                <p>Your donation can make a significant difference. Please consider donating blood at your earliest convenience.</p>
-                <p>Thank you for your support.</p>
+            <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h2 style="color: #e53935; margin: 0; font-size: 24px;">Urgent Blood Donation Needed</h2>
+                    </div>
+                    <div style="background-color: #f8f9fa; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <p style="color: #555555; margin: 0 0 15px 0;">Dear Donor,</p>
+                        <p style="color: #555555; margin: 0 0 15px 0;">We are reaching out to inform you that the blood bank in your district (%s) is running low on supplies.</p>
+                        <p style="color: #555555; margin: 0 0 15px 0;">Your donation can make a significant difference. Please consider donating blood at your earliest convenience.</p>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <p style="color: #666666; font-size: 15px;">Thank you for your support.</p>
+                    </div>
+                </div>
             </body>
             </html>
             """, district);
